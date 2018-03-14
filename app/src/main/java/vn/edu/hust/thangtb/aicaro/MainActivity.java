@@ -4,6 +4,7 @@ package vn.edu.hust.thangtb.aicaro;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -69,11 +70,12 @@ public void newGame(){
                             Cells[i][j].setBackgroundResource(dataImage[turn]);
                             Cells[i][j].setClickable(false);
 
-                            ChangeTurn();
+
                             m=i;
                             n=j;
                             r=1;
                             MAXTRIX[i][j] = 1;
+                            ChangeTurn();
                         } else if (turn == 0) BotPlay();
                     }
                 });
@@ -124,7 +126,8 @@ public void newGame(){
         }
     }
     public void ChangeTurn(){
-        if(!checkWin()) {
+        if(!checkWin(MAXTRIX,m,n,r)) {
+            Log.d("Win","Thua");
             turn = (turn + 1) % 2;
             if (turn == 1) {
                 txtTurn.setText("Your Turn");
@@ -139,7 +142,67 @@ public void newGame(){
         }
     }
 
-    private boolean checkWin() {
+    private boolean checkWin(int[][] matrix, int x,int y,int c) {
+        if(checkHangNgang(matrix,x,y,c) || checkHangDoc(matrix,x,y,c)
+                || checkCheoPhai(matrix,x,y,c)|| checkCheoTrai(matrix,x,y,c)) return true;
+        return false;
+    }
+
+    private boolean checkCheoPhai(int[][] matrix, int x, int y, int c) {
+        for(int i=-4;i<=0;i++){
+            int dem=0;
+            for(int j =i;j<i+5;j++){
+                if(x+j>=0&&x+j<TABLE_HEIGHT&&y-j>=0&&y-j<TABLE_HEIGHT) {
+                    if (matrix[x + j][y - j] == c) dem++;
+                }
+            }
+            if(dem==5) return true;
+        }
+        return false;
+    }
+
+
+
+    private boolean checkCheoTrai(int[][] matrix, int x, int y, int c) {
+        for(int i=-4;i<=0;i++){
+            int dem=0;
+            for(int j =i;j<i+5;j++){
+                if(x+j>=0&&x+j<TABLE_HEIGHT&&y+j>=0&&y+j<TABLE_HEIGHT) {
+                    if (matrix[x + j][y + j] == c) dem++;
+                }
+            }
+            if(dem==5) return true;
+        }
+        return false;
+    }
+     private boolean checkHangDoc(int[][] matrix, int x, int y, int c) {
+       for(int k= x-4;k<=x;k++){
+            if(k>=0) {
+                int dem = 0;
+                for (int j = k; j < k + 5; j++) {
+                    if(j<TABLE_HEIGHT) {
+                        if (matrix[j][y] == c) dem++;
+                    }
+                }
+                if (dem == 5) return true;
+            }
+        }
+
+
+        return false;
+    }
+    private boolean checkHangNgang(int[][] matrix, int x, int y, int c) {
+        for(int k= y-4;k<=y;k++){
+            if(k>=0) {
+                int dem = 0;
+                for (int j = k; j < k + 5; j++) {
+                    if(j<TABLE_HEIGHT) {
+                        if (matrix[x][j] == c) dem++;
+                    }
+                }
+                if (dem == 5) return true;
+            }
+        }
         return false;
     }
 
@@ -160,7 +223,9 @@ public void newGame(){
                     @Override
                     public void onClick(View view) {
                         if(turn==1){
+                            Log.d("Load Image ","Chuan bi");
                             Cells[finalY][finalX].setBackgroundResource(dataImage[turn]);
+                            Log.d("Load Image ","Xong");
                             Cells[finalY][finalX].setClickable(false);
                             MAXTRIX[finalY][finalX]=1;
                             m = finalY;
