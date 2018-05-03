@@ -33,11 +33,12 @@
             android:layout_height="match_parent" />
         <TextView
              android:background="@android:color/holo_green_dark"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:id="@+id/txtTurn"
             android:textSize="15dp"
             android:textStyle="bold"
             android:text="Your Turn"
+
             android:layout_weight="2"
             android:gravity="center"
             android:layout_width="0dp"

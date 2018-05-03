@@ -10,7 +10,7 @@
     tools:context="vn.edu.hust.thangtb.aicaro.SetupActivity">
     <TextView
         android:padding="10dp"
-        android:layout_weight="2.5"
+        android:layout_weight="2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:text="BKAChess"
@@ -19,7 +19,7 @@
         android:textSize="50dp"
         android:textStyle="bold" />
     <TextView
-        android:layout_weight="0.5"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:text="Hello, Please select your options : "
@@ -27,58 +27,60 @@
         android:textSize="20dp"
         android:textStyle="bold"
          />
-
-    <RadioGroup
-        android:padding="8dp"
-        android:id="@+id/rbFP"
-        android:orientation="vertical"
+    <TextView
+     android:layout_weight="1"
         android:layout_width="match_parent"
-         android:layout_weight="3"
-        android:layout_height="0dp">
-        <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:layout_height="0dp"
+         android:layout_marginLeft="10dp"
         android:text="Who plays firstly ? (*)"
         android:textColor="@color/colorAccent"
         android:textSize="20dp"
         android:textStyle="bold"
          />
+    <RadioGroup
+        android:padding="8dp"
+        android:id="@+id/rbFP"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+         android:layout_weight="1"
+        android:layout_height="0dp">
         <RadioButton
             android:id="@+id/rbP"
             android:layout_width="wrap_content"
             android:layout_height = "wrap_content"
-            android:text="Player First"
+            android:text="Player"
              android:textSize="20dp"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             />
         <RadioButton
+            android:layout_marginLeft="70dp"
             android:id="@+id/rbAI"
             android:layout_width="wrap_content"
             android:layout_height = "wrap_content"
-            android:text="AI First"
+            android:text="AI"
              android:textSize="20dp"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             />
     </RadioGroup>
-    <RadioGroup
-        android:padding="8dp"
-        android:id="@+id/rbXO"
-        android:orientation="vertical"
+     <TextView
+          android:layout_marginLeft="10dp"
+         android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_weight="3"
-        android:layout_height="0dp">
-        <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:layout_height="0dp"
         android:text="You select X or O? (*)"
         android:textColor="@color/colorAccent"
         android:textSize="20dp"
         android:textStyle="bold"
          />
+    <RadioGroup
+        android:padding="8dp"
+        android:id="@+id/rbXO"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
         <RadioButton
             android:id="@+id/rbX"
             android:layout_width="wrap_content"
@@ -89,10 +91,57 @@
             android:textStyle="bold"
             />
         <RadioButton
+            android:layout_marginLeft="100dp"
             android:id="@+id/rbO"
             android:layout_width="wrap_content"
             android:layout_height = "wrap_content"
             android:text="O"
+             android:textSize="20dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            />
+    </RadioGroup>
+    <TextView
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="You select Level AI (*)"
+        android:textColor="@color/colorAccent"
+        android:textSize="20dp"
+        android:textStyle="bold"
+         />
+    <RadioGroup
+        android:padding="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+        <RadioButton
+            android:id="@+id/rbEasy"
+            android:layout_width="wrap_content"
+            android:layout_height = "wrap_content"
+            android:text="Easy"
+            android:textSize="20dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            />
+        <RadioButton
+            android:layout_marginLeft="30dp"
+            android:id="@+id/rbMedium"
+            android:layout_width="wrap_content"
+            android:layout_height = "wrap_content"
+            android:text="Medium"
+             android:textSize="20dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            />
+        <RadioButton
+            android:layout_marginLeft="30dp"
+            android:id="@+id/rbHard"
+            android:layout_width="wrap_content"
+            android:layout_height = "wrap_content"
+            android:text="Hard"
              android:textSize="20dp"
             android:textColor="@android:color/white"
             android:textStyle="bold"

@@ -9,12 +9,14 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class SetupActivity extends AppCompatActivity {
-    Button btnGo;
-    RadioButton rbX, rbO, rbP,rbAI;
-    int firstPlayer=0;
-    int shape=0;
-    boolean checkFP=false;
-    boolean checkXO=false;
+    private Button btnGo;
+    private RadioButton rbX, rbO, rbP,rbAI,rbEasy, rbHard, rbMedium;
+    private int firstPlayer=0;
+    private int shape=0;
+    private int level=1;
+   private boolean checkFP=false;
+    private boolean checkXO=false;
+    private boolean checkLevel = false;
     // 0 may, 1 nguoi
     // neu ng chon X : 3, neu ng chon Y 4
 
@@ -26,6 +28,9 @@ public class SetupActivity extends AppCompatActivity {
         rbO = findViewById(R.id.rbO);
         rbP = findViewById(R.id.rbP);
         rbAI = findViewById(R.id.rbAI);
+        rbEasy = findViewById(R.id.rbEasy);
+        rbHard = findViewById(R.id.rbHard);
+        rbMedium = findViewById(R.id.rbMedium);
         btnGo = findViewById(R.id.btnGo);
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,9 +45,18 @@ public class SetupActivity extends AppCompatActivity {
                     if(rbAI.isChecked()) firstPlayer =0;
                     else firstPlayer=1;
                 }
-                Toast.makeText(SetupActivity.this,checkFP+"  "+checkXO,Toast.LENGTH_LONG).show();;
-                if(checkXO && checkFP) {
-                    MoveToActivity(MainActivity.class, "fistPlayer", firstPlayer + "", "shape", shape + "");
+                if(rbEasy.isChecked()||rbMedium.isChecked()|| rbHard.isChecked()){
+                     checkLevel =true;
+                     if(rbEasy.isChecked()) level =3;
+                     else if(rbMedium.isChecked()) level =4;
+                     else if(rbHard.isChecked()) level =5;
+
+
+                }
+
+                Toast.makeText(SetupActivity.this,checkFP+"  "+checkXO+" "+checkLevel,Toast.LENGTH_SHORT).show();;
+                if(checkXO && checkFP&&checkLevel) {
+                    MoveToActivity(MainActivity.class, "fistPlayer", firstPlayer + "", "shape", shape + "","level",level+"");
                 }
             }
         });
@@ -56,6 +70,7 @@ public class SetupActivity extends AppCompatActivity {
             bundle.putString(s[0],s[1]);
         }
         if(s.length>=4)  bundle.putString(s[2],s[3]);
+        if(s.length>=6) bundle.putString(s[4],s[5]);
         intent.putExtra("SetUp",bundle);
         startActivity(intent);
     }

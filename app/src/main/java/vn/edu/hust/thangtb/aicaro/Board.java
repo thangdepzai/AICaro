@@ -4,11 +4,11 @@ package vn.edu.hust.thangtb.aicaro;
  * Created by thang on 3/15/2018.
  */
 
-public class CaroBoard {
+public class Board {
     private int[][] square ;
     private int size;
 
-    public CaroBoard(int n) {
+    public Board(int n) {
         this.size = n;
         square  = new int[size][size];
         for (int i = 0; i < n; i++) {
