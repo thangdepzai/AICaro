@@ -53,7 +53,7 @@ public class AsyncTaskGame extends android.os.AsyncTask<String, String, Point> {
         if( MainActivity.turn !=1) MainActivity.stAI.push(new cell(p.x,p.y));
         Cells[p.x][p.y].setBackgroundResource(data[0]);
         Cells[p.x][p.y].setClickable(false);
-         Cells[p.x][p.y].getBackground().setColorFilter(Color.parseColor("#303F9F"), android.graphics.PorterDuff.Mode.MULTIPLY);
+         Cells[p.x][p.y].getBackground().setColorFilter(Color.parseColor("#1a1919"), android.graphics.PorterDuff.Mode.MULTIPLY);
         caroBoard.set(p.x,p.y,2);
         matrix[p.x][p.y]=2;
         MainActivity.m=p.x;

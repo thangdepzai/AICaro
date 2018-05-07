@@ -91,10 +91,15 @@ public void newGame(){
         if(turn ==1){
             txtTurn.setText("Your Turn");
         }else txtTurn.setText("Ai 's thinking .....");
+        Cells[0][0].setBackgroundResource(dataImage[0]);
+        Cells[0][0].getBackground().clearColorFilter();
+        Cells[0][0].setBackgroundResource(dataImage[1]);
+        Cells[0][0].getBackground().clearColorFilter();
         for(int i1=0;i1<TABLE_HEIGHT;i1++) {
             for (int j1 = 0; j1 < TABLE_WIDTH; j1++) {
                 Cells[i1][j1].setClickable(true);
                 Cells[i1][j1].setBackgroundResource(R.drawable.shape_cell);
+
                 MAXTRIX[i1][j1] = 0;
                 caro.set(i1,j1,0);
             }
@@ -120,7 +125,7 @@ public void newGame(){
 
         Log.d("may push",x+" "+y);
         Cells[x][y].setBackgroundResource(dataImage[turn]);
-        Cells[x][y].getBackground().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), android.graphics.PorterDuff.Mode.MULTIPLY);
+        Cells[x][y].getBackground().setColorFilter(getResources().getColor(R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         Cells[x][y].setClickable(false);
         m=x;n=y;
@@ -238,6 +243,7 @@ public void newGame(){
     }
 
     public void desginBoardGame(){
+
         time1=1;
          activeGame = true;
        // int inPixels=(int) getResources().getDimension(R.dimen.imageview_height);
@@ -252,6 +258,12 @@ public void newGame(){
             for (int x = 0; x < TABLE_WIDTH; x++) {
                 final int col = x;
                 Cells[y][x] = new ImageButton(this);
+                if(x==0 && y==0){
+                    Cells[0][0].setBackgroundResource(dataImage[0]);
+                    Cells[0][0].getBackground().clearColorFilter();
+                    Cells[0][0].setBackgroundResource(dataImage[1]);
+                    Cells[0][0].getBackground().clearColorFilter();
+                }
                 Cells[y][x].setBackgroundResource(R.drawable.shape_cell);
                 final int finalY = y;
                 final int finalX = x;
