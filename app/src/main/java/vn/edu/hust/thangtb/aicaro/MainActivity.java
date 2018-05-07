@@ -4,6 +4,7 @@ package vn.edu.hust.thangtb.aicaro;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -12,8 +13,14 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Stack;
+
 public class MainActivity extends Activity {
-    private Button newG;
+    static Stack stAI = new  Stack<cell>();
+    static Stack st = new  Stack<cell>();
+    int time1=1;
+
+    private Button newG, btnUndo;
     public  static int m,n;
     private TableLayout table;
     private int first=0; // 0 Ai, 1 Nguoi
@@ -37,6 +44,7 @@ public class MainActivity extends Activity {
         txtTurn = findViewById(R.id.txtTurn);
          ai = new AlphaBetaPrunning(TABLE_HEIGHT,maxDepth);
         newG = findViewById(R.id.btnNewGame);
+        btnUndo = findViewById(R.id.btnUndo);
         Setup();
          loadResource();
          caro = new Board(TABLE_HEIGHT);
@@ -47,17 +55,39 @@ public class MainActivity extends Activity {
                 newGame();
             }
         });
-
         if(turn ==1){
             txtTurn.setText("Your Turn");
         }else txtTurn.setText("Ai 's thinking .....");
+        btnUndo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(turn ==1&& activeGame && st.size()>=1 && stAI.size()>=1 ){
+                    cell curr = (cell) stAI.pop();
+                    MAXTRIX[curr.x][curr.y]=0;
+                    caro.set(curr.x,curr.y,0);
+                    Cells[curr.x][curr.y].setBackgroundResource(R.drawable.shape_cell);
+                    Cells[curr.x][curr.y].setClickable(true);
+                    cell curr2 = (cell) st.pop();
+                    MAXTRIX[curr2.x][curr2.y]=0;
+                    caro.set(curr2.x,curr2.y,0);
+                    Cells[curr2.x][curr2.y].setBackgroundResource(R.drawable.shape_cell);
+                    Cells[curr2.x][curr2.y].setClickable(true);
+
+
+                }
+            }
+        });
+
 
     }
 
 
 public void newGame(){
+        time1=1;
         activeGame =true;
         turn =first;
+        while(st.size()!=0) st.pop();
+    while(stAI.size()!=0) stAI.pop();
         if(turn ==1){
             txtTurn.setText("Your Turn");
         }else txtTurn.setText("Ai 's thinking .....");
@@ -67,32 +97,9 @@ public void newGame(){
                 Cells[i1][j1].setBackgroundResource(R.drawable.shape_cell);
                 MAXTRIX[i1][j1] = 0;
                 caro.set(i1,j1,0);
-                final int i = i1;
-                final int j = j1;
-                Cells[i][j].setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (turn == 1&& activeGame) {
-                            Cells[i][j].setBackgroundResource(dataImage[turn]);
-                            Cells[i][j].setClickable(false);
-                            m=i;
-                            n=j;
-                            r=1;
-                            MAXTRIX[i][j] = 1;
-                            caro.set(i,j,1);
-                            turn =0;
-                            if(checkWin(MAXTRIX,m,n,r)){
-                                // TODO
-                                activeGame = false;
-                                txtTurn.setText("You are Winner");
-                            }
-                            else if(turn ==0 && activeGame && MAXTRIX[i][j] == 1) BotPlay();
-                        }
-                    }
-                });
             }
         }
-         if(first ==0 && activeGame) BotPlay(7,7);
+         if(first ==0 && activeGame){ BotPlay(7,7);}
 
 }
     private void BotPlay() {
@@ -109,7 +116,12 @@ public void newGame(){
 
     }
     private void make_a_move(int x,int y) {
+         stAI.push(new cell(x,y));
+
+        Log.d("may push",x+" "+y);
         Cells[x][y].setBackgroundResource(dataImage[turn]);
+        Cells[x][y].getBackground().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), android.graphics.PorterDuff.Mode.MULTIPLY);
+
         Cells[x][y].setClickable(false);
         m=x;n=y;
         r=2;
@@ -226,6 +238,7 @@ public void newGame(){
     }
 
     public void desginBoardGame(){
+        time1=1;
          activeGame = true;
        // int inPixels=(int) getResources().getDimension(R.dimen.imageview_height);
        // int inPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
@@ -246,14 +259,24 @@ public void newGame(){
                     @Override
                     public void onClick(View view) {
                         if(turn==1 && activeGame){
+                            if(stAI.size()!=0) {
+                                cell ce = (cell) stAI.peek();
+                                Cells[ce.getX()][ce.getY()].getBackground().clearColorFilter();
+                            }
+                            int curr =st.size();
+                            st.push(new cell(finalY,finalX));
+                            Log.d("nguoi push",finalY+" "+finalX);
+
                             Cells[finalY][finalX].setBackgroundResource(dataImage[turn]);
                             Cells[finalY][finalX].setClickable(false);
+
                             MAXTRIX[finalY][finalX]=1;
                             caro.set(finalY,finalX,1);
                             m = finalY;
                             n =finalX;
                             r=1;
-                            turn =0;
+                            if(st.size()>curr) turn =0;
+
                              if(checkWin(MAXTRIX,m,n,r)){
                                 // TODO
                                  activeGame =false;
@@ -270,7 +293,7 @@ public void newGame(){
             }
             table.addView(r1,inPixels*TABLE_HEIGHT,inPixels);
         }
-        if(first ==0 && activeGame) BotPlay(7,7);
+        if(first ==0 && activeGame){ time1=0; BotPlay(7,7);}
     }
     public void Setup(){
         Intent intent = getIntent();

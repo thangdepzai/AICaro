@@ -1,6 +1,7 @@
 package vn.edu.hust.thangtb.aicaro;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -19,6 +20,7 @@ public class AsyncTaskGame extends android.os.AsyncTask<String, String, Point> {
     private AlphaBetaPrunning ai;
     private int[][] matrix;
     private Activity acc;
+    private int currsize=0;
 
 
     public AsyncTaskGame(TextView txt, ImageButton[][] cells, Board caroBoard, int[] data, AlphaBetaPrunning ai, int[][] matrix, Activity acc) {
@@ -29,6 +31,7 @@ public class AsyncTaskGame extends android.os.AsyncTask<String, String, Point> {
         this.ai = ai;
         this.matrix = matrix;
         this.acc = acc;
+        this.currsize = MainActivity.stAI.size();
     }
 
     @Override
@@ -47,13 +50,16 @@ public class AsyncTaskGame extends android.os.AsyncTask<String, String, Point> {
      @Override
     protected void onPostExecute(Point p) {
         super.onPostExecute(p);
+        if( MainActivity.turn !=1) MainActivity.stAI.push(new cell(p.x,p.y));
         Cells[p.x][p.y].setBackgroundResource(data[0]);
         Cells[p.x][p.y].setClickable(false);
+         Cells[p.x][p.y].getBackground().setColorFilter(Color.parseColor("#303F9F"), android.graphics.PorterDuff.Mode.MULTIPLY);
         caroBoard.set(p.x,p.y,2);
         matrix[p.x][p.y]=2;
         MainActivity.m=p.x;
         MainActivity.n=p.y;
-        MainActivity.turn =1;
+        if(MainActivity.stAI.size() > currsize)  MainActivity.turn =1;
+         Log.d("may push",p.x+" "+p.y);
         MainActivity.r =2;
         Log.d("m",MainActivity.m+"");
         Log.d("n",MainActivity.n+"");

@@ -77,7 +77,7 @@ public class AlphaBetaPrunning {
         }
         if (countAI * countHuman == 0 && countAI != countHuman) {
                     for (int i = 0; i < 5; i++) {
-                        if (b.getSquare()[currDong][currCot + i] == 0) {
+                        if (CheckPoint(currDong, currCot+i) &&b.getSquare()[currDong][currCot + i] == 0) {
                             if (countAI == 0) {
                                 if (Player == 2) {
                                     evaluateSquare[currDong][currCot + i] += defenseScore[countHuman];
@@ -101,7 +101,7 @@ public class AlphaBetaPrunning {
                                 }
                             }
                             if ((countAI == 4 || countHuman == 4) && ((CheckPoint(currDong, currCot + i - 1) && b.getSquare()[currDong][currCot + i - 1] == 0) || (CheckPoint(currDong, currCot + i + 1) && b.getSquare()[currDong][currCot + i + 1] == 0))) {
-                                evaluateSquare[currDong][currCot + i] *= 2;
+                                evaluateSquare[currDong][currCot + i] *= 3;
                             } else if (countAI == 4 || countHuman == 4) {
                                 evaluateSquare[currDong][currCot + i] *= 2;
                             }
@@ -122,7 +122,7 @@ public class AlphaBetaPrunning {
         }
         if (countAI * countHuman == 0 && countAI != countHuman) {
                     for (int i = 0; i < 5; i++) {
-                        if (b.getSquare()[currDong+i][currCot ] == 0) {
+                        if (CheckPoint(currDong+i, currCot) && b.getSquare()[currDong+i][currCot ] == 0) {
                             if (countAI == 0) {
                                 if (Player == 2) {
                                     evaluateSquare[currDong+i][currCot] += defenseScore[countHuman];
@@ -146,7 +146,7 @@ public class AlphaBetaPrunning {
                                 }
                             }
                             if ((countAI == 4 || countHuman == 4) && ((CheckPoint(currDong+ i - 1, currCot ) && b.getSquare()[currDong+ i - 1][currCot ] == 0) || (CheckPoint(currDong+ i + 1, currCot ) && b.getSquare()[currDong+ i + 1][currCot ] == 0))) {
-                                evaluateSquare[currDong+i][currCot] *= 2;
+                                evaluateSquare[currDong+i][currCot] *= 3;
                             } else if (countAI == 4 || countHuman == 4) {
                                 evaluateSquare[currDong+i][currCot] *= 2;
                             }
@@ -168,7 +168,7 @@ public class AlphaBetaPrunning {
         }
         if (countAI * countHuman == 0 && countAI != countHuman) {
                     for (int i = 0; i < 5; i++) {
-                        if (b.getSquare()[currDong+i][currCot+i ] == 0) {
+                        if (CheckPoint(currDong+i, currCot+i) && b.getSquare()[currDong+i][currCot+i ] == 0) {
                             if (countAI == 0) {
                                 if (Player == 2) {
                                     evaluateSquare[currDong+i][currCot+i] += defenseScore[countHuman];
@@ -192,7 +192,7 @@ public class AlphaBetaPrunning {
                                 }
                             }
                             if ((countAI == 4 || countHuman == 4) && ((CheckPoint(currDong+ i - 1, currCot+ i - 1 ) && b.getSquare()[currDong+ i - 1][currCot + i - 1] == 0) || (CheckPoint(currDong+ i + 1, currCot+ i + 1 ) && b.getSquare()[currDong+ i + 1][currCot+ i + 1 ] == 0))) {
-                                evaluateSquare[currDong+i][currCot+i] *= 2;
+                                evaluateSquare[currDong+i][currCot+i] *= 3;
                             } else if (countAI == 4 || countHuman == 4) {
                                 evaluateSquare[currDong+i][currCot+i] *= 2;
                             }
@@ -214,7 +214,7 @@ public class AlphaBetaPrunning {
         }
         if (countAI * countHuman == 0 && countAI != countHuman) {
                     for (int i = 0; i < 5; i++) {
-                        if (b.getSquare()[currDong-i][currCot+i ] == 0) {
+                        if (CheckPoint(currDong-i,currCot+i ) &&b.getSquare()[currDong-i][currCot+i ] == 0) {
                             if (countAI == 0) {
                                 if (Player == 2) {
                                     evaluateSquare[currDong-i][currCot+i] += defenseScore[countHuman];
@@ -237,7 +237,7 @@ public class AlphaBetaPrunning {
                                 }
                             }
                             if ((countAI == 4 || countHuman == 4) && ((CheckPoint(currDong- i + 1, currCot+ i - 1 ) && b.getSquare()[currDong- i + 1][currCot + i - 1] == 0) || (CheckPoint(currDong- i - 1, currCot+ i + 1 ) && b.getSquare()[currDong- i - 1][currCot+ i + 1 ] == 0))) {
-                                evaluateSquare[currDong-i][currCot+i] *= 2;
+                                evaluateSquare[currDong-i][currCot+i] *= 3;
                             } else if (countAI == 4 || countHuman == 4) {
                                 evaluateSquare[currDong-i][currCot+i] *= 2;
                             }
